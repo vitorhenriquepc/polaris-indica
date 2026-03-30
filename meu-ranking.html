@@ -362,12 +362,12 @@ body{font-family:'Outfit',sans-serif;background:var(--navy-deep);color:var(--gra
 </div><!-- .page -->
 
 <script>
-const PX='https://api.codetabs.com/v1/proxy?quest=';
+const PX='https://docs.google.com/spreadsheets/d/e/2PACX-1vQJVyEiVLWNHOK1Y2Brrw_OcIDZWEiotPcv48OAL6whCpfJwR_d_iVNX1PYz5QCyC-UwVp90BL81PFG/pub';
 // SHEET CONFIG — replace with your published sheet ID
 const SHEET_ID='1tWuk6IA5rnFfx8C6Bxg4Migwa0KSrzsXWEDCkV7NiZY';
 let allInd=[],allRef=[],me=null,myCode='',ranking=[];
 
-function gCSV(gid){return`${PX}https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`}
+function gCSV(gid){return `${PX}?gid=${gid}&output=csv`}
 
 function getCurrentTrimestre(){
   const m=new Date().getMonth(),y=new Date().getFullYear();
@@ -395,11 +395,11 @@ async function doLogin(){
     }
 
     // Find user by code or phone
-    const clean=input.replace(/\D/g,'');
+    const clean=input.replace(/\D/g,''); const isCode=/[A-Za-z]/.test(input);
     me=allInd.find(r=>{
       const code=(r['Código']||'').toUpperCase();
       const phone=(r['Telefone']||'').replace(/\D/g,'');
-      return code===input.toUpperCase() || phone===clean || phone.endsWith(clean);
+      return isCode ? code===input.toUpperCase() : (phone===clean || phone.endsWith(clean));
     });
 
     if(!me){document.getElementById('loginError').style.display='block';return}
