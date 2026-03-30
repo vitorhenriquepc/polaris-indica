@@ -261,14 +261,14 @@ body{
 </div>
 
 <script>
-const PX='https://api.allorigins.win/raw?url=';
+const PX='https://docs.google.com/spreadsheets/d/e/2PACX-1vQJVyEiVLWNHOK1Y2Brrw_OcIDZWEiotPcv48OAL6whCpfJwR_d_iVNX1PYz5QCyC-UwVp90BL81PFG/pub';
 let D=[],R=[],cTri='T1 2026',cSt='todas';
 
 const SHEET_ID='1tWuk6IA5rnFfx8C6Bxg4Migwa0KSrzsXWEDCkV7NiZY';
 const GID_INDICADORES='790120450';
 const GID_INDICACOES='1124389417';
 const GID_RANKING='2050155457';
-function gCSV(gid){return`${PX}https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`}
+function gCSV(gid){return `${PX}?gid=${gid}&output=csv`}
 
 async function loadData(){
   ['rankArea','refArea','indArea'].forEach(i=>{document.getElementById(i).innerHTML='<div class="loading"><div class="spin"></div>Carregando...</div>'});
