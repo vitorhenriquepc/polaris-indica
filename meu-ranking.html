@@ -362,12 +362,12 @@ body{font-family:'Outfit',sans-serif;background:var(--navy-deep);color:var(--gra
 </div><!-- .page -->
 
 <script>
-const PX='https://docs.google.com/spreadsheets/d/e/2PACX-1vQJVyEiVLWNHOK1Y2Brrw_OcIDZWEiotPcv48OAL6whCpfJwR_d_iVNX1PYz5QCyC-UwVp90BL81PFG/pub';
+const PX='https://api.codetabs.com/v1/proxy?quest=';
 // SHEET CONFIG — replace with your published sheet ID
 const SHEET_ID='1tWuk6IA5rnFfx8C6Bxg4Migwa0KSrzsXWEDCkV7NiZY';
 let allInd=[],allRef=[],me=null,myCode='',ranking=[];
 
-function gCSV(gid){return `${PX}?gid=${gid}&output=csv`}
+function gCSV(gid){return`${PX}https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`}
 
 function getCurrentTrimestre(){
   const m=new Date().getMonth(),y=new Date().getFullYear();
@@ -395,11 +395,11 @@ async function doLogin(){
     }
 
     // Find user by code or phone
-    const clean=input.replace(/\D/g,''); const isCode=/[A-Za-z]/.test(input);
+    const clean=input.replace(/\D/g,'');
     me=allInd.find(r=>{
       const code=(r['Código']||'').toUpperCase();
       const phone=(r['Telefone']||'').replace(/\D/g,'');
-      return isCode ? code===input.toUpperCase() : (phone===clean || phone.endsWith(clean));
+      return code===input.toUpperCase() || phone===clean || phone.endsWith(clean);
     });
 
     if(!me){document.getElementById('loginError').style.display='block';return}
@@ -518,7 +518,7 @@ function renderMotivation(){
       icon='💪';msg=`Você já tem <strong>${pts} pontos</strong> e <strong>R$ ${(pts*200).toLocaleString('pt-BR')}</strong> em PIX acumulados! Continue indicando para subir no ranking.`;
     }
   }else if(pos===1){
-    icon='👑';msg='Você está <strong>liderando o ranking</strong>! Mantenha o ritmo e garanta o prêmio de <span class="gold">R$1.500</span>.';
+    icon='👑';msg='Você está <strong>liderando o ranking</strong>! Mantenha o ritmo e garanta o prêmio de <span class="gold">📺 TV 32"</span>.';
   }else{
     const first=ranking[0].points;
     const diff=first-pts+1;
@@ -546,9 +546,9 @@ function renderPrizes(){
   const pos=myRank?ranking.indexOf(myRank)+1:999;
 
   const prizes=[
-    {medal:'🥇',place:'1º Lugar',val:'R$ 1.500',desc:'Campeão do trimestre',pos:1},
-    {medal:'🥈',place:'2º Lugar',val:'R$ 1.000',desc:'Vice-campeão',pos:2},
-    {medal:'🥉',place:'3º Lugar',val:'R$ 500',desc:'Terceiro colocado',pos:3},
+    {medal:'🥇',place:'1º Lugar',val:'📺 TV 32"',desc:'Campeão do trimestre',pos:1},
+    {medal:'🥈',place:'2º Lugar',val:'🔊 Alexa Echo',desc:'Vice-campeão',pos:2},
+    {medal:'🥉',place:'3º Lugar',val:'🎵 JBL Go',desc:'Terceiro colocado',pos:3},
   ];
 
   let html=`<div class="prizes-title">🎁 Prêmios do Trimestre</div>`;
