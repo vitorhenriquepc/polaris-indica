@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Luiza — Programa de Parceiros Polaris</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#011D2E;--navy-deep:#000A14;--navy-mid:#012840;
+  --green:#3B8B3B;--green-bright:#56D656;--green-glow:rgba(59,139,59,.15);
+  --gold:#F5A623;--gold-light:#FFD777;
+  --white:#FFF;--gray-100:#E8EDF2;--gray-200:#C0C9D4;--gray-400:#7A8A9A;
+  --red:#E53935;--orange:#FF8C00;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:#1a2332;background:#f0f4f8;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg,var(--navy-deep),var(--navy-mid));
+  padding:40px 0;text-align:center;color:white;
+  border-bottom:3px solid var(--gold);
+}
+.header img{height:44px;margin-bottom:20px}
+.header h1{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.header p{color:rgba(255,255,255,.65);font-size:.95rem}
+.header-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:100px;margin-top:16px;
+  background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);
+  font-size:.8rem;font-weight:700;color:var(--gold-light);
+}
+
+/* Nav pills */
+.nav{
+  display:flex;gap:8px;padding:24px 40px;background:white;
+  border-bottom:1px solid #e2e8f0;flex-wrap:wrap;
+  position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.nav a{
+  padding:8px 18px;border-radius:100px;font-size:.82rem;font-weight:700;
+  text-decoration:none;color:var(--gray-400);border:1.5px solid #e2e8f0;
+  transition:all .2s;
+}
+.nav a:hover{color:var(--navy);border-color:var(--navy)}
+.nav a.active{background:var(--navy);color:white;border-color:var(--navy)}
+
+/* Layout */
+.container{max-width:860px;margin:0 auto;padding:40px 24px}
+
+/* Section */
+.section{
+  background:white;border-radius:20px;padding:36px;
+  margin-bottom:24px;border:1px solid #e2e8f0;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.section-header{
+  display:flex;align-items:center;gap:14px;margin-bottom:28px;
+  padding-bottom:20px;border-bottom:2px solid #f0f4f8;
+}
+.section-icon{
+  width:48px;height:48px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+}
+.icon-green{background:var(--green-glow);}
+.icon-gold{background:rgba(245,166,35,.12);}
+.icon-blue{background:rgba(59,130,246,.1);}
+.icon-red{background:rgba(229,57,53,.1);}
+.section-title{font-family:'Sora',sans-serif;font-size:1.25rem;font-weight:800;color:var(--navy)}
+.section-sub{font-size:.85rem;color:var(--gray-400);margin-top:4px}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:16px}
+.step{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:20px;border-radius:14px;border:1.5px solid #e2e8f0;
+  transition:border-color .2s;
+}
+.step:hover{border-color:#cbd5e1}
+.step-num{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-size:.9rem;font-weight:800;
+  background:var(--navy);color:white;
+}
+.step-body h4{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+.step-body p{font-size:.88rem;color:#4a5568;line-height:1.6}
+.step-body code{
+  display:inline-block;padding:2px 8px;border-radius:6px;
+  background:#f1f5f9;color:var(--navy);font-family:monospace;font-size:.82rem;
+  border:1px solid #e2e8f0;
+}
+
+/* Tabela campos */
+.fields-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.fields-table th{
+  padding:10px 16px;text-align:left;background:#f8fafc;
+  color:var(--gray-400);font-size:.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  border-bottom:2px solid #e2e8f0;
+}
+.fields-table td{
+  padding:12px 16px;border-bottom:1px solid #f1f5f9;color:#374151;
+  vertical-align:top;
+}
+.fields-table tr:last-child td{border-bottom:none}
+.fields-table tr:hover td{background:#f8fafc}
+.required{
+  display:inline-block;padding:2px 8px;border-radius:4px;
+  font-size:.7rem;font-weight:700;
+  background:rgba(229,57,53,.1);color:var(--red);
+  margin-left:4px;
+}
+.optional{
+  display:inline-block;padding:2px 8px;border-radius:4px;
+  font-size:.7rem;font-weight:700;
+  background:#f1f5f9;color:var(--gray-400);
+  margin-left:4px;
+}
+.highlight{
+  background:rgba(245,166,35,.08);
+  border:1px solid rgba(245,166,35,.25);
+  border-radius:8px;padding:2px 8px;
+  color:#92400e;font-weight:700;
+}
+
+/* Status table */
+.status-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.status-table th{padding:10px 16px;text-align:left;background:#f8fafc;color:var(--gray-400);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid #e2e8f0}
+.status-table td{padding:12px 16px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:.78rem;font-weight:700}
+.badge-novo{background:#f1f5f9;color:#64748b}
+.badge-ativo{background:rgba(59,139,59,.12);color:#2d7a2d}
+.badge-elite{background:rgba(245,166,35,.15);color:#92400e}
+.badge-risco{background:rgba(229,57,53,.1);color:#c0392b}
+.badge-inativo{background:#fee2e2;color:#991b1b}
+
+/* Alerta box */
+.alert{
+  display:flex;gap:12px;padding:16px 20px;border-radius:12px;margin-bottom:20px;
+}
+.alert-warn{background:rgba(245,166,35,.08);border:1.5px solid rgba(245,166,35,.3)}
+.alert-info{background:rgba(59,130,246,.06);border:1.5px solid rgba(59,130,246,.2)}
+.alert-success{background:rgba(59,139,59,.08);border:1.5px solid rgba(59,139,59,.25)}
+.alert-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.alert-text{font-size:.88rem;color:#374151;line-height:1.6}
+.alert-text strong{color:var(--navy)}
+
+/* WA preview */
+.wa-preview{
+  background:#075e54;border-radius:14px;padding:20px 24px;margin:16px 0;
+  font-family:monospace;font-size:.82rem;color:#dcf8c6;line-height:1.8;
+}
+.wa-preview .wa-header{color:#25d366;font-weight:bold;margin-bottom:8px;font-size:.85rem}
+
+/* Código exemplo */
+.code-block{
+  background:#1e293b;border-radius:12px;padding:20px;
+  font-family:monospace;font-size:.82rem;color:#94a3b8;
+  line-height:1.7;overflow-x:auto;margin:12px 0;
+}
+.code-block .green{color:#4ade80}
+.code-block .gold{color:#fbbf24}
+.code-block .blue{color:#60a5fa}
+
+/* FAQ */
+.faq{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:10px}
+.faq-q{
+  padding:16px 20px;font-weight:700;font-size:.9rem;color:var(--navy);
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+  background:#f8fafc;
+}
+.faq-q:hover{background:#f1f5f9}
+.faq-a{padding:16px 20px;font-size:.88rem;color:#4a5568;line-height:1.7;border-top:1px solid #e2e8f0;display:none}
+.faq.open .faq-a{display:block}
+.faq.open .faq-icon{transform:rotate(45deg)}
+.faq-icon{transition:transform .2s;font-size:1.2rem;color:var(--gray-400)}
+
+/* Footer */
+.footer{text-align:center;padding:40px 24px;color:var(--gray-400);font-size:.82rem}
+
+@media(max-width:600px){
+  .section{padding:24px 20px}
+  .nav{padding:16px 20px}
+  .container{padding:24px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="data:image/png;base64,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" alt="Polaris">
+  <h1>Guia de Operação — Programa de Parceiros</h1>
+  <p>Manual interno para cadastro e gestão de parceiros comerciais</p>
+  <div class="header-badge">📋 Uso exclusivo interno · Luiza — Pós-Venda</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#cadastro" class="active">1. Cadastrar parceiro</a>
+  <a href="#indicacao">2. Registrar indicação</a>
+  <a href="#status">3. Gerir status</a>
+  <a href="#comissao">4. Calcular comissão</a>
+  <a href="#faq">5. Dúvidas frequentes</a>
+</nav>
+
+<div class="container">
+
+  <!-- SEÇÃO 1: CADASTRO -->
+  <div class="section" id="cadastro">
+    <div class="section-header">
+      <div class="section-icon icon-green">🤝</div>
+      <div>
+        <div class="section-title">1. Como cadastrar um novo parceiro</div>
+        <div class="section-sub">Quando alguém preenche o formulário ou pede para entrar no programa</div>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="alert-icon">ℹ️</span>
+      <div class="alert-text">
+        Quando um parceiro preenche o <strong>parceiro-cadastro.html</strong>, você recebe automaticamente uma mensagem no WhatsApp com todos os dados dele já formatados. Você só precisa aprovar e cadastrar na planilha.
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Receber o pedido de cadastro</h4>
+          <p>O WhatsApp vai receber uma mensagem automática com os dados do parceiro. Verifique se o perfil faz sentido (profissão, cidade, potencial de clientes).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Abrir a planilha no Google Sheets</h4>
+          <p>Acesse a planilha <strong>Polaris_Indique_Ganhe_Base_v2</strong> e vá para a aba <strong>Indicadores</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Gerar o código do parceiro</h4>
+          <p>Use o padrão <code>PAR001</code>, <code>PAR002</code>... em sequência. Clientes usam <code>POL001</code>, parceiros usam <code>PAR001</code>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Preencher os campos na aba Indicadores</h4>
+          <p>Veja a tabela abaixo com os campos obrigatórios e opcionais.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Enviar o código pelo WhatsApp</h4>
+          <p>Responda ao parceiro com o código e o link do painel. Exemplo:<br>
+          <code>Olá [Nome]! Seu cadastro foi aprovado 🎉 Seu código é PAR001. Acesse seu painel em: indica.polarisenergiasolar.com/meu-parceiro.html?code=PAR001</code></p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:16px">Campos da aba Indicadores</h3>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Coluna</th><th>O que preencher</th><th>Exemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Código</strong> <span class="required">obrigatório</span></td>
+          <td>Código único do parceiro. Sequencial.</td>
+          <td><code>PAR001</code></td>
+        </tr>
+        <tr>
+          <td><strong>Nome Completo</strong> <span class="required">obrigatório</span></td>
+          <td>Nome completo como cadastrado</td>
+          <td>João Carlos Silva</td>
+        </tr>
+        <tr>
+          <td><strong>Telefone</strong> <span class="required">obrigatório</span></td>
+          <td>WhatsApp com DDD — usado para login no painel</td>
+          <td>(18) 99999-1234</td>
+        </tr>
+        <tr>
+          <td><strong>E-mail</strong> <span class="optional">opcional</span></td>
+          <td>E-mail de contato</td>
+          <td>joao@email.com</td>
+        </tr>
+        <tr>
+          <td><strong>Tipo</strong> <span class="required">obrigatório</span></td>
+          <td class="highlight">⚠️ SEMPRE colocar exatamente: <strong>Parceiro Comercial</strong></td>
+          <td><span class="highlight">Parceiro Comercial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Data Cadastro</strong> <span class="required">obrigatório</span></td>
+          <td>Data de aprovação do cadastro</td>
+          <td>01/04/2026</td>
+        </tr>
+        <tr>
+          <td><strong>Conv. T1–T4</strong> <span class="optional">automático</span></td>
+          <td>Deixar em branco — a planilha calcula sozinha</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Observações</strong> <span class="optional">opcional</span></td>
+          <td>Profissão, cidade, qualquer nota útil</td>
+          <td>Eletricista · Araçatuba</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-warn" style="margin-top:20px">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-text">
+        <strong>Importante:</strong> o campo <strong>Tipo</strong> precisa ser exatamente <strong>Parceiro Comercial</strong> (com maiúsculas, sem acento em "Parceiro"). Se estiver diferente, o parceiro não consegue fazer login no painel.
+      </div>
+    </div>
+
+    <!-- WA preview -->
+    <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin:24px 0 12px">Mensagem de boas-vindas (copie e adapte)</h3>
+    <div class="wa-preview">
+      <div class="wa-header">💬 Mensagem para o parceiro</div>
+Olá, [Nome]! 🌟
+
+Seu cadastro como Parceiro Comercial da Polaris foi aprovado!
+
+Aqui estão seus dados de acesso:
+🔑 *Código:* PAR001
+📱 *Painel exclusivo:* indica.polarisenergiasolar.com/meu-parceiro.html?code=PAR001
+
+No painel você acompanha suas indicações, comissões e status no clube em tempo real.
+
+Qualquer dúvida, é só chamar aqui. Bem-vindo ao time! ☀️
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: REGISTRAR INDICAÇÃO -->
+  <div class="section" id="indicacao">
+    <div class="section-header">
+      <div class="section-icon icon-gold">📋</div>
+      <div>
+        <div class="section-title">2. Como registrar uma indicação de parceiro</div>
+        <div class="section-sub">Quando o parceiro envia um cliente pelo WhatsApp</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Receber a indicação pelo WhatsApp</h4>
+          <p>O parceiro vai mandar: nome do cliente, telefone e uma breve descrição. Anote o código do parceiro (ex: PAR001).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Abrir a aba Indicações na planilha</h4>
+          <p>Vá para a aba <strong>Indicações</strong> e adicione uma nova linha com os dados abaixo.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Preencher os campos da indicação</h4>
+          <p>Veja a tabela de campos abaixo. Deixe Status como <code>Pendente</code> inicialmente.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Atualizar o status conforme o andamento</h4>
+          <p>Conforme a negociação evolui, atualize o campo <strong>Status</strong>. Quando fechar, marque <strong>Convertida</strong>, preencha Data Contrato e Valor kWp.</p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:16px">Campos da aba Indicações</h3>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Coluna</th><th>O que preencher</th><th>Exemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ID</strong></td><td>Número sequencial (1, 2, 3...)</td><td>6</td></tr>
+        <tr><td><strong>Cód. Indicador</strong> <span class="required">obrigatório</span></td><td>Código do parceiro que indicou</td><td><code>PAR001</code></td></tr>
+        <tr><td><strong>Nome Indicador</strong></td><td>Nome do parceiro</td><td>João Carlos Silva</td></tr>
+        <tr><td><strong>Nome Indicado</strong> <span class="required">obrigatório</span></td><td>Nome do cliente indicado</td><td>Fazenda Santa Fé</td></tr>
+        <tr><td><strong>Telefone Indicado</strong></td><td>Contato do cliente</td><td>(18) 98888-5678</td></tr>
+        <tr><td><strong>Data Indicação</strong></td><td>Data que o parceiro mandou</td><td>01/04/2026</td></tr>
+        <tr><td><strong>Status</strong> <span class="required">obrigatório</span></td><td>Pendente → Em negociação → Convertida (ou Perdida)</td><td>Pendente</td></tr>
+        <tr><td><strong>Data Contrato</strong></td><td>Preencher só quando Convertida</td><td>15/04/2026</td></tr>
+        <tr><td><strong>Valor kWp</strong></td><td>Potência do sistema em kWp</td><td>35</td></tr>
+        <tr><td><strong>Trimestre</strong></td><td>Trimestre da indicação</td><td>T2 2026</td></tr>
+        <tr><td><strong>PIX Pago?</strong></td><td>Sim ou Não — marcar após pagar</td><td>Não</td></tr>
+        <tr><td><strong>Data PIX</strong></td><td>Data do pagamento da comissão</td><td>16/04/2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEÇÃO 3: STATUS DO CLUBE -->
+  <div class="section" id="status">
+    <div class="section-header">
+      <div class="section-icon icon-blue">🏆</div>
+      <div>
+        <div class="section-title">3. Regras de status do clube</div>
+        <div class="section-sub">Como o parceiro sobe ou cai de nível — e o que você precisa fazer</div>
+      </div>
+    </div>
+
+    <table class="status-table">
+      <thead>
+        <tr><th>Status</th><th>Critério</th><th>Benefício</th><th>Sua ação</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-novo">🆕 Novo</span></td>
+          <td>Cadastrado, ainda sem conversão</td>
+          <td>Acesso ao painel</td>
+          <td>Nenhuma — aguardar primeira conversão</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-ativo">✅ Ativo</span></td>
+          <td>≥ 1 conversão no trimestre atual</td>
+          <td>Comissões normais (2% / 2,5% / 3%)</td>
+          <td>Nenhuma — parceiro está ok</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-elite">⭐ Elite</span></td>
+          <td>≥ 3 conversões no trimestre</td>
+          <td>Comissão extra +0,5% sobre o contrato</td>
+          <td>Aplicar o bônus na hora de calcular a comissão</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-risco">⚠️ Em risco</span></td>
+          <td>0 conversões no trimestre atual</td>
+          <td>Mantém acesso, mas sem novas comissões</td>
+          <td>Enviar mensagem de reativação pelo WhatsApp</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-inativo">⚫ Inativo</span></td>
+          <td>0 conversões por 2 trimestres seguidos</td>
+          <td>Removido do clube</td>
+          <td>Apagar código da planilha ou mudar Tipo para "Inativo"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-warn" style="margin-top:20px">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-text">
+        <strong>Reativar parceiro em risco:</strong> no início de cada mês, verifique quem está sem conversões. Envie a mensagem abaixo para reativar.
+      </div>
+    </div>
+
+    <div class="wa-preview">
+      <div class="wa-header">💬 Mensagem de reativação (copie e adapte)</div>
+Oi, [Nome]! Tudo bem? 👋
+
+Passando para avisar que este trimestre você ainda não tem indicações convertidas. Lembrando que é necessário ao menos 1 conversão por trimestre para manter seu status ativo no Clube de Parceiros Polaris.
+
+Tem algum cliente em vista? A gente pode te ajudar a avançar na conversa! 😊
+
+Qualquer coisa é só chamar. ☀️
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4: CALCULAR COMISSÃO -->
+  <div class="section" id="comissao">
+    <div class="section-header">
+      <div class="section-icon icon-green">💰</div>
+      <div>
+        <div class="section-title">4. Como calcular e pagar a comissão</div>
+        <div class="section-sub">Após o contrato assinado</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Verificar o status do parceiro</h4>
+          <p>Confirme se o parceiro é <strong>Ativo</strong> ou <strong>Elite</strong>. Se Elite, aplicar bônus de +0,5%.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Identificar o porte do sistema</h4>
+          <p>Veja o campo <strong>Valor kWp</strong> na aba Indicações e aplique a tabela abaixo.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Calcular a comissão</h4>
+          <p>Fórmula: <code>Valor do Contrato × % da faixa (+ 0,5% se Elite)</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Pagar via PIX e registrar na planilha</h4>
+          <p>Após o PIX, marque <strong>PIX Pago? = Sim</strong> e preencha a <strong>Data PIX</strong> na aba Indicações.</p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:16px">Tabela de comissões</h3>
+    <table class="fields-table">
+      <thead><tr><th>Porte do sistema</th><th>% Normal</th><th>% Elite (+0,5%)</th><th>Exemplo Normal</th><th>Exemplo Elite</th></tr></thead>
+      <tbody>
+        <tr><td>Até 10 kWp</td><td><strong>2%</strong></td><td><strong>2,5%</strong></td><td>R$25k → <strong>R$500</strong></td><td>R$25k → <strong>R$625</strong></td></tr>
+        <tr><td>10 a 30 kWp</td><td><strong>2,5%</strong></td><td><strong>3%</strong></td><td>R$60k → <strong>R$1.500</strong></td><td>R$60k → <strong>R$1.800</strong></td></tr>
+        <tr><td>Acima de 30 kWp</td><td><strong>3%</strong></td><td><strong>3,5%</strong></td><td>R$120k → <strong>R$3.600</strong></td><td>R$120k → <strong>R$4.200</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-success" style="margin-top:20px">
+      <span class="alert-icon">💡</span>
+      <div class="alert-text">
+        <strong>Dica:</strong> o painel <strong>meu-parceiro.html</strong> tem uma calculadora de comissão integrada. Você também pode usar para conferir o valor antes de pagar.
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 5: FAQ -->
+  <div class="section" id="faq">
+    <div class="section-header">
+      <div class="section-icon icon-blue">❓</div>
+      <div>
+        <div class="section-title">5. Dúvidas frequentes</div>
+        <div class="section-sub">Situações comuns no dia a dia do programa</div>
+      </div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="faq-q">O parceiro disse que não consegue fazer login no painel <span class="faq-icon">+</span></div>
+      <div class="faq-a">Verifique na aba Indicadores se o campo <strong>Tipo</strong> está exatamente como <strong>Parceiro Comercial</strong> (com maiúsculas). Verifique também se o telefone está igual ao que ele está digitando. O login aceita o código (PAR001) ou o telefone sem formatação.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="faq-q">O parceiro indicou alguém mas o cliente veio pelo comercial também — quem fica com a indicação? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Prevalece quem indicou primeiro. Se o parceiro mandou antes do comercial entrar em contato, a indicação é dele. Use a <strong>Data Indicação</strong> como critério.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="faq-q">O parceiro quer saber quando vai receber a comissão <span class="faq-icon">+</span></div>
+      <div class="faq-a">A comissão é paga via PIX <strong>assim que o contrato é assinado</strong> — não precisa esperar a obra terminar. Após o pagamento, marque PIX Pago = Sim e preencha a Data PIX para o parceiro ver no painel dele.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Como remover um parceiro inativo do clube? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Na aba Indicadores, mude o campo <strong>Tipo</strong> de <em>Parceiro Comercial</em> para <em>Inativo</em>. Isso impede o login no painel sem precisar apagar o histórico.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="faq-q">O parceiro quer alterar o telefone cadastrado <span class="faq-icon">+</span></div>
+      <div class="faq-a">Atualize o campo <strong>Telefone</strong> na aba Indicadores. O novo número passa a funcionar para login imediatamente.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="faq-q">O parceiro indicou um cliente que era prospecto antigo da Polaris <span class="faq-icon">+</span></div>
+      <div class="faq-a">Verificar com o comercial se havia contato ativo nos últimos 90 dias. Se não havia, a indicação é válida e o parceiro tem direito à comissão.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Polaris Energia Solar · Programa de Parceiros Comerciais · Uso interno</p>
+  <p style="margin-top:6px">Dúvidas? Fale com o Vitor.</p>
+</div>
+
+<script>
+// Highlight nav on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+  });
+});
+</script>
+</body>
+</html>
